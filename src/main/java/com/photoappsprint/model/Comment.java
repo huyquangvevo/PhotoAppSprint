@@ -3,7 +3,10 @@ package com.photoappsprint.model;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
@@ -11,11 +14,16 @@ import javax.persistence.OneToOne;
 public class Comment {
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private int id;
+	
 	@ManyToOne
+	@JoinColumn(name="photo_id")
 	private Photo photo;
-	@OneToOne
+	
+	@ManyToOne
 	private User user;
+	
 	private Date dateTime;
 	private String comment;
 	
@@ -25,7 +33,12 @@ public class Comment {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+	public Photo getPhoto() {
+		return photo;
+	}
+	public void setPhoto(Photo photo) {
+		this.photo = photo;
+	}
 	public User getUser() {
 		return user;
 	}

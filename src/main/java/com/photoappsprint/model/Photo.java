@@ -6,7 +6,10 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -14,12 +17,17 @@ import javax.persistence.OneToMany;
 public class Photo {
 	
 	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private int id;
+	
 	@ManyToOne
+	@JoinColumn(name="user_id")
 	private User user;
+	
 	private Date dateTime;
 	private String fileName;
-	@OneToMany
+	
+	@OneToMany(mappedBy="photo")
 	private List<Comment> comments;
 	
 	public int getId() {
